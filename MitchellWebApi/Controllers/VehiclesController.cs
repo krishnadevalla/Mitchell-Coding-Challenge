@@ -5,33 +5,33 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace MitchellWebAPI.Controllers
+namespace MitchellWebApi.Controllers
 {
-    public class ValuesController : ApiController
+    public class VehiclesController : ApiController
     {
-        // GET api/values
+        // GET: api/Vehicles
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5
+        // GET: api/Vehicles/5
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
+        // POST: api/Vehicles
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT: api/Vehicles/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE: api/Vehicles/5
         public void Delete(int id)
         {
         }
