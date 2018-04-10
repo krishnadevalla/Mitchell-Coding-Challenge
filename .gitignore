@@ -6,6 +6,8 @@
 *.suo
 /packages
 /MitchellWebAPI.Tests/obj/Debug
-/.vs/MitchellClassLib/v15/Server/sqlite3
+/.vs
 /MitchellWebAPI.Tests/bin/Debug
 /MitchellClassLib/bin/Debug
+/MitchellWebAPI/bin
+/MitchellWebAPI/obj/Debug
