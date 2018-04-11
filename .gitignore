@@ -11,3 +11,6 @@
 /MitchellClassLib/bin/Debug
 /MitchellWebAPI/bin
 /MitchellWebAPI/obj/Debug
+/MitchellClassLibTests/bin/Debug
+/MitchellClassLibTests/obj/Debug
+/MitchellWebApiTests/obj/Debug

@@ -58,10 +58,15 @@ namespace MitchellWebApi.Controllers
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult Post([FromBody]Vehicle vehicle)
         {
-            if (context.addVehicle(vehicle))
-                return Ok(vehicle);
+            if (ModelState.IsValid)
+            {
+                if (context.addVehicle(vehicle))
+                    return Ok(vehicle);
+                else
+                    return BadRequest("Vehicle is null or duplicate");
+            }
             else
-                return BadRequest("Vehicle is null or duplicate");
+                return BadRequest("Vehicle is not valid");
 
         }
 
@@ -74,10 +79,15 @@ namespace MitchellWebApi.Controllers
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult Put([FromBody]Vehicle vehicle)
         {
-            if (context.updateVehicle(vehicle) != null)
-                return Ok(vehicle);
+            if (ModelState.IsValid)
+            {
+                if (context.updateVehicle(vehicle) != null)
+                    return Ok(vehicle);
+                else
+                    return BadRequest("No vehical found");
+            }
             else
-                return BadRequest("No vehical found");
+                return BadRequest("Vehicle is not valid");
         }
 
 

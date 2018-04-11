@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MitchellClassLib", "Mitchel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MitchellWebApi", "MitchellWebApi\MitchellWebApi.csproj", "{35C701EB-CCA5-4524-8EEF-667FB367F9FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MitchellWebApi.Tests", "MitchellWebApi.Tests\MitchellWebApi.Tests.csproj", "{8BDD871E-1BB9-48A2-A394-10FD02FA9A12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MitchellClassLibTests", "MitchellClassLibTests\MitchellClassLibTests.csproj", "{4039C343-917B-4486-B982-AB4306E07B9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{35C701EB-CCA5-4524-8EEF-667FB367F9FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35C701EB-CCA5-4524-8EEF-667FB367F9FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35C701EB-CCA5-4524-8EEF-667FB367F9FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BDD871E-1BB9-48A2-A394-10FD02FA9A12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BDD871E-1BB9-48A2-A394-10FD02FA9A12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BDD871E-1BB9-48A2-A394-10FD02FA9A12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BDD871E-1BB9-48A2-A394-10FD02FA9A12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4039C343-917B-4486-B982-AB4306E07B9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4039C343-917B-4486-B982-AB4306E07B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4039C343-917B-4486-B982-AB4306E07B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4039C343-917B-4486-B982-AB4306E07B9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
