@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using MitchellClassLib;
 using System.Web.Http;
+using Unity;
+using Unity.Lifetime;
 
 namespace MitchellWebApi
 {
@@ -12,6 +12,11 @@ namespace MitchellWebApi
             // Web API configuration and services
 
             // Web API routes
+
+            var container = new UnityContainer();
+            container.RegisterType<IContext, VehiclesContext>(new HierarchicalLifetimeManager());
+            config.DependencyResolver = new UnityResolver(container);
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
