@@ -1,6 +1,6 @@
 ﻿using MitchellClassLib.Commons.DTOs;
 
-namespace MitchellClassLib.Commons
+namespace MitchellClassLib.Commons.Models
 {
     public interface IVehicle
     {

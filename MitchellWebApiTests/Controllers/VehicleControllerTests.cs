@@ -2,9 +2,7 @@
 using MitchellClassLib;
 using MitchellClassLib.Commons.DTOs;
 using MitchellClassLib.Commons.Models;
-using Moq;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
@@ -17,26 +15,25 @@ namespace MitchellWebApi.Controllers.Tests
         private VehicleController controller;
 
         [TestMethod()]
-        public void ApiGetVehiclesTest_ReturnsAllVehicles()
+        public void ApiGetVehiclesTest_ReturnsAllVehiclesCheckCount()
         {
             // Arrange
-            var contextMock = new VehiclesContext();
-            VehiclesContext.Vehicles.Add(new Vehicle()
+            var repo = new VehiclesRepository();
+            VehiclesRepository.Vehicles.Add(new Vehicle()
             {
                 Id = 1,
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2015
             });
-            VehiclesContext.Vehicles.Add(new Vehicle()
+            VehiclesRepository.Vehicles.Add(new Vehicle()
             {
                 Id = 2,
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2016
             });
-
-            controller = new VehicleController(contextMock)
+            controller = new VehicleController(repo)
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
@@ -44,7 +41,6 @@ namespace MitchellWebApi.Controllers.Tests
 
             // Act
             var response = controller.Get() as OkNegotiatedContentResult<IEnumerable<IVehicleDTO>>;
-
 
             // Assert
             Assert.IsNotNull(response);
@@ -55,8 +51,12 @@ namespace MitchellWebApi.Controllers.Tests
         public void ApiPostVehicleTest_ShouldReturnSameVehicleAndIdInURL()
         {
             // Arrange
-            IMock<IContext> mockContext = new Mock<VehiclesContext>();
-            var controller = new VehicleController(mockContext.Object);
+            var repo = new VehiclesRepository();
+            controller = new VehicleController(repo)
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
             Vehicle vehicle = new Vehicle()
             {
                 Make = "Honda",
@@ -76,57 +76,78 @@ namespace MitchellWebApi.Controllers.Tests
         }
 
         [TestMethod()]
-        public void ApiGetVehicleByIdTest()
+        public void ApiGetVehicleByIdTest_ShouldReturnTheVehicle()
         {
             // Arrange
-            IMock<IContext> mockContext = new Mock<VehiclesContext>();
-            var controller = new VehicleController(mockContext.Object);
-            Vehicle vehicle = new Vehicle()
+            var repo = new VehiclesRepository();
+            controller = new VehicleController(repo)
             {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+            VehiclesRepository.Vehicles.Add(new Vehicle()
+            {
+                Id = 1,
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2015
-            };
-            // Act
-            controller.Post(vehicle);
-            OkNegotiatedContentResult<IVehicleDTO> response = controller.Get(1) as OkNegotiatedContentResult<IVehicleDTO>;
+            });
 
+            // Act
+            OkNegotiatedContentResult<IVehicleDTO> response = controller.Get(1) as OkNegotiatedContentResult<IVehicleDTO>;
 
             // Assert
             Assert.IsNotNull(response.Content);
             Assert.AreEqual(2015, (response.Content as VehicleDTO).Year);
-
+            Assert.AreEqual("HRV", (response.Content as VehicleDTO).Model);
         }
 
-        [TestMethod()]
-        public void ApiGetVehicleByFilterAndValue()
+        [TestMethod]
+        public void GetVehicleById_ReturnsNotFound()
         {
             // Arrange
-            var contextMock = new VehiclesContext();
-            VehiclesContext.Vehicles.Add(new Vehicle()
-            {
-                Id = 1,
-                Make = "Honda",
-                Model = "Model",
-                Year = 2015
-            });
-            VehiclesContext.Vehicles.Add(new Vehicle()
-            {
-                Id = 2,
-                Make = "Honda",
-                Model = "Model",
-                Year = 2016
-            });
-
-            controller = new VehicleController(contextMock)
+            // Arrange
+            var repo = new VehiclesRepository();
+            controller = new VehicleController(repo)
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
             };
 
             // Act
-            var response = controller.Get("Model","Model") as OkNegotiatedContentResult<IEnumerable<IVehicleDTO>>;
+            var actionResult = controller.Get(10);
 
+            // Assert
+            Assert.IsInstanceOfType(actionResult, typeof(NotFoundResult));
+        }
+
+        [TestMethod()]
+        public void ApiGetVehicleByFilterAndValue()
+        {
+            // Arrange
+            var repo = new VehiclesRepository();
+            VehiclesRepository.Vehicles.Add(new Vehicle()
+            {
+                Id = 1,
+                Make = "Honda",
+                Model = "Model",
+                Year = 2015
+            });
+            VehiclesRepository.Vehicles.Add(new Vehicle()
+            {
+                Id = 2,
+                Make = "Honda",
+                Model = "Model",
+                Year = 2016
+            });
+            controller = new VehicleController(repo)
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+
+            // Act
+            var response = controller.Get("Model", "Model") as OkNegotiatedContentResult<IEnumerable<IVehicleDTO>>;
 
             // Assert
             Assert.IsNotNull(response);
@@ -137,14 +158,18 @@ namespace MitchellWebApi.Controllers.Tests
         public void ApiPutVehicleTest()
         {
             // Arrange
-            IMock<IContext> mockContext = new Mock<VehiclesContext>();
-            var controller = new VehicleController(mockContext.Object);
-            Vehicle vehicle = new Vehicle()
+            var repo = new VehiclesRepository();
+            controller = new VehicleController(repo)
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+            VehiclesRepository.Vehicles.Add(new Vehicle()
             {
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2015
-            };
+            });
             Vehicle updatedVehicle = new Vehicle()
             {
                 Id = 1,
@@ -154,28 +179,31 @@ namespace MitchellWebApi.Controllers.Tests
             };
 
             // Act
-            IHttpActionResult actionResult = controller.Post(vehicle);
-            actionResult = controller.Put(updatedVehicle);
+            var actionResult = controller.Put(updatedVehicle);
             var contentResult = actionResult as OkNegotiatedContentResult<IVehicleDTO>;
 
             // Assert
             Assert.IsNotNull(contentResult);
             Assert.IsNotNull(contentResult.Content);
-            Assert.AreEqual(2016, (contentResult.Content as VehicleDTO).Year);
+            Assert.AreEqual(updatedVehicle.Year, (contentResult.Content as VehicleDTO).Year);
         }
 
         [TestMethod()]
-        public void ApiDeleteVehicleTest()
+        public void ApiDeleteVehicleTest_ReturnsOkay()
         {
             // Arrange
-            IMock<IContext> mockContext = new Mock<VehiclesContext>();
-            var controller = new VehicleController(mockContext.Object);
-            Vehicle vehicle = new Vehicle()
+            var repo = new VehiclesRepository();
+            controller = new VehicleController(repo)
+            {
+                Request = new HttpRequestMessage(),
+                Configuration = new HttpConfiguration()
+            };
+            VehiclesRepository.Vehicles.Add(new Vehicle()
             {
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2015
-            };
+            });
 
             // Act
             IHttpActionResult actionResult = controller.Delete(1);
@@ -184,20 +212,20 @@ namespace MitchellWebApi.Controllers.Tests
             Assert.IsInstanceOfType(actionResult, typeof(OkResult));
         }
 
-
         [TestMethod]
         public void PutVehicle_ShouldReturnNotFound()
         {
             // Arrange
-            IMock<IContext> mockContext = new Mock<VehiclesContext>();
-            controller = new VehicleController(mockContext.Object)
+            var repo = new VehiclesRepository();
+            controller = new VehicleController(repo)
             {
                 Request = new HttpRequestMessage(),
                 Configuration = new HttpConfiguration()
             };
             Vehicle vehicle = new Vehicle()
             {
-                Make = "Honda",
+                Id = 1,
+                Make = "onda",
                 Model = "HRV",
                 Year = 2015
             };

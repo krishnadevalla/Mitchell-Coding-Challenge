@@ -14,7 +14,7 @@ namespace MitchellWebApi
             // Web API routes
 
             var container = new UnityContainer();
-            container.RegisterType<IContext, VehiclesContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<IRepository, VehiclesRepository>(new HierarchicalLifetimeManager());
             config.DependencyResolver = new UnityResolver(container);
 
             config.EnableCors();

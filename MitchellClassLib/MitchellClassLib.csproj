@@ -45,10 +45,10 @@
     <Compile Include="Commons\Helpers\VehicleIdHelper.cs" />
     <Compile Include="Commons\Models\IVehicle.cs" />
     <Compile Include="Commons\Models\Vehicle.cs" />
-    <Compile Include="Context\IContext.cs" />
+    <Compile Include="Context\IRepository.cs" />
     <Compile Include="Commons\DTOs\IVehicleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Context\VehiclesContext.cs" />
+    <Compile Include="Context\VehiclesRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

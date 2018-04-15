@@ -1,9 +1,6 @@
 ﻿using MitchellClassLib;
 using MitchellClassLib.Commons.DTOs;
 using MitchellClassLib.Commons.Models;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -13,17 +10,17 @@ namespace MitchellWebApi.Controllers
     /// <summary>
     /// WebApi that manages vehicles
     /// </summary>
-    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class VehicleController : ApiController
     {
-        private IContext context;
+        private IRepository repository;
 
         /// <summary>
         /// Constructor with Dependency Injection
         /// </summary>
-        public VehicleController(IContext vehiclecontext)
+        public VehicleController(IRepository vehiclerepo)
         {
-            context = vehiclecontext;
+            repository = vehiclerepo;
         }
 
         /// <summary>
@@ -32,7 +29,7 @@ namespace MitchellWebApi.Controllers
         [Route("vehicles")]
         public IHttpActionResult Get()
         {
-            return Ok(context.getVehicles());
+            return Ok(repository.GetVehicles());
         }
 
         /// <summary>
@@ -44,7 +41,7 @@ namespace MitchellWebApi.Controllers
         [ResponseType(typeof(Vehicle))]
         public IHttpActionResult Get(int id)
         {
-            IVehicleDTO vehicle = context.getVehicleId(id);
+            IVehicleDTO vehicle = repository.GetVehicleId(id);
             if (vehicle != null)
                 return Ok(vehicle);
             else
@@ -59,7 +56,7 @@ namespace MitchellWebApi.Controllers
         [Route("vehicles/{filter}/{value}")]
         public IHttpActionResult Get(string filter, string value)
         {
-            return Ok(context.getVehicleByFilter(filter, value));
+            return Ok(repository.GetVehicleByFilter(filter, value));
         }
 
         /// <summary>
@@ -72,7 +69,7 @@ namespace MitchellWebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                IVehicleDTO veh = context.addVehicle(vehicle);
+                IVehicleDTO veh = repository.AddVehicle(vehicle);
                 if (veh != null)
                     return CreatedAtRoute("GetById", new { id = vehicle.Id }, veh);
                 else
@@ -92,7 +89,7 @@ namespace MitchellWebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                IVehicleDTO veh = context.updateVehicle(vehicle);
+                IVehicleDTO veh = repository.UpdateVehicle(vehicle);
                 if (veh != null)
                     return Ok(veh);
                 else
@@ -110,7 +107,7 @@ namespace MitchellWebApi.Controllers
         [Route("vehicles/{id}")]
         public IHttpActionResult Delete(int id)
         {
-            if (context.deleteVehicle(id))
+            if (repository.DeleteVehicle(id))
                 return Ok();
             else
                 return NotFound();

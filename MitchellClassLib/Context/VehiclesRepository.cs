@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MitchellClassLib
 {
-    public class VehiclesContext : IContext
+    public class VehiclesRepository : IRepository
     {
         #region Private fields
 
@@ -24,14 +24,14 @@ namespace MitchellClassLib
 
         #region Public methods
 
-        public virtual IEnumerable<IVehicleDTO> getVehicles()
+        public virtual IEnumerable<IVehicleDTO> GetVehicles()
         {
             List<VehicleDTO> veh = new List<VehicleDTO>();
             Vehicles.ForEach(x => veh.Add(x.MapDto()));
             return veh;
         }
 
-        public IVehicleDTO addVehicle(Vehicle vehicle)
+        public IVehicleDTO AddVehicle(Vehicle vehicle)
         {
             if (vehicle != null && !Vehicles.Any(x => x.Id == vehicle.Id))
             {
@@ -49,7 +49,7 @@ namespace MitchellClassLib
             }
         }
 
-        public bool deleteVehicle(int id)
+        public bool DeleteVehicle(int id)
         {
             if (Vehicles.Any(x => x.Id == id))
             {
@@ -59,7 +59,7 @@ namespace MitchellClassLib
             return false;
         }
 
-        public IVehicleDTO updateVehicle(Vehicle vehicle)
+        public IVehicleDTO UpdateVehicle(Vehicle vehicle)
         {
             Vehicle v = Vehicles.FirstOrDefault(x => x.Id == vehicle.Id);
             if (v != null)
@@ -73,15 +73,15 @@ namespace MitchellClassLib
             return null;
         }
 
-        public IVehicleDTO getVehicleId(int id)
+        public IVehicleDTO GetVehicleId(int id)
         {
             return Vehicles.FirstOrDefault(x => x.Id == id)?.MapDto();
         }
 
-        public IEnumerable<IVehicleDTO> getVehicleByFilter(string filter, string value)
+        public IEnumerable<IVehicleDTO> GetVehicleByFilter(string filter, string value)
         {
             if (filter == "" || value == "")
-                return getVehicles();
+                return GetVehicles();
             veh.Clear();
             switch (filter.ToLower())
             {
@@ -102,7 +102,7 @@ namespace MitchellClassLib
                     break;
 
                 default:
-                    return getVehicles();
+                    return GetVehicles();
             }
             return veh;
         }

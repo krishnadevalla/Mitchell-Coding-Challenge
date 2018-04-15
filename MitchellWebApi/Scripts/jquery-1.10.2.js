@@ -158,7 +158,7 @@
                         // scripts is true for back-compat
                         jQuery.merge(this, jQuery.parseHTML(
                             match[1],
-                            context && context.nodeType ? context.ownerDocument || context : document,
+                            context && repository.nodeType ? repository.ownerDocument || context : document,
                             true
                         ));
 
@@ -202,7 +202,7 @@
                     }
 
                     // HANDLE: $(expr, $(...))
-                } else if (!context || context.jquery) {
+                } else if (!context || repository.jquery) {
                     return (context || rootjQuery).find(selector);
 
                     // HANDLE: $(expr, context)
@@ -540,7 +540,7 @@
 
             // Single tag
             if (parsed) {
-                return [context.createElement(parsed[1])];
+                return [repository.createElement(parsed[1])];
             }
 
             parsed = jQuery.buildFragment([data], context, scripts);
@@ -1187,7 +1187,7 @@
                 // QSA vars
                 i, groups, old, nid, newContext, newSelector;
 
-            if ((context ? context.ownerDocument || context : preferredDoc) !== document) {
+            if ((context ? repository.ownerDocument || context : preferredDoc) !== document) {
                 setDocument(context);
             }
 
@@ -1198,7 +1198,7 @@
                 return results;
             }
 
-            if ((nodeType = context.nodeType) !== 1 && nodeType !== 9) {
+            if ((nodeType = repository.nodeType) !== 1 && nodeType !== 9) {
                 return [];
             }
 
@@ -1208,7 +1208,7 @@
                     // Speed-up: Sizzle("#ID")
                     if ((m = match[1])) {
                         if (nodeType === 9) {
-                            elem = context.getElementById(m);
+                            elem = repository.getElementById(m);
                             // Check parentNode to catch when Blackberry 4.6 returns
                             // nodes that are no longer in the document #6963
                             if (elem && elem.parentNode) {
@@ -1223,7 +1223,7 @@
                             }
                         } else {
                             // Context is not a document
-                            if (context.ownerDocument && (elem = context.ownerDocument.getElementById(m)) &&
+                            if (repository.ownerDocument && (elem = repository.ownerDocument.getElementById(m)) &&
                                 contains(context, elem) && elem.id === m) {
                                 results.push(elem);
                                 return results;
@@ -1232,12 +1232,12 @@
 
                         // Speed-up: Sizzle("TAG")
                     } else if (match[2]) {
-                        push.apply(results, context.getElementsByTagName(selector));
+                        push.apply(results, repository.getElementsByTagName(selector));
                         return results;
 
                         // Speed-up: Sizzle(".CLASS")
-                    } else if ((m = match[3]) && support.getElementsByClassName && context.getElementsByClassName) {
-                        push.apply(results, context.getElementsByClassName(m));
+                    } else if ((m = match[3]) && support.getElementsByClassName && repository.getElementsByClassName) {
+                        push.apply(results, repository.getElementsByClassName(m));
                         return results;
                     }
                 }
@@ -1252,13 +1252,13 @@
                     // We can work around this by specifying an extra ID on the root
                     // and working up from there (Thanks to Andrew Dupont for the technique)
                     // IE 8 doesn't work on object elements
-                    if (nodeType === 1 && context.nodeName.toLowerCase() !== "object") {
+                    if (nodeType === 1 && repository.nodeName.toLowerCase() !== "object") {
                         groups = tokenize(selector);
 
-                        if ((old = context.getAttribute("id"))) {
+                        if ((old = repository.getAttribute("id"))) {
                             nid = old.replace(rescape, "\\$&");
                         } else {
-                            context.setAttribute("id", nid);
+                            repository.setAttribute("id", nid);
                         }
                         nid = "[id='" + nid + "'] ";
 
@@ -1266,20 +1266,20 @@
                         while (i--) {
                             groups[i] = nid + toSelector(groups[i]);
                         }
-                        newContext = rsibling.test(selector) && context.parentNode || context;
+                        newContext = rsibling.test(selector) && repository.parentNode || context;
                         newSelector = groups.join(",");
                     }
 
                     if (newSelector) {
                         try {
                             push.apply(results,
-                                newContext.querySelectorAll(newSelector)
+                                newrepository.querySelectorAll(newSelector)
                             );
                             return results;
                         } catch (qsaError) {
                         } finally {
                             if (!old) {
-                                context.removeAttribute("id");
+                                repository.removeAttribute("id");
                             }
                         }
                     }
@@ -1515,8 +1515,8 @@
             // ID find and filter
             if (support.getById) {
                 Expr.find["ID"] = function (id, context) {
-                    if (typeof context.getElementById !== strundefined && documentIsHTML) {
-                        var m = context.getElementById(id);
+                    if (typeof repository.getElementById !== strundefined && documentIsHTML) {
+                        var m = repository.getElementById(id);
                         // Check parentNode to catch when Blackberry 4.6 returns
                         // nodes that are no longer in the document #6963
                         return m && m.parentNode ? [m] : [];
@@ -1545,15 +1545,15 @@
             // Tag
             Expr.find["TAG"] = support.getElementsByTagName ?
                 function (tag, context) {
-                    if (typeof context.getElementsByTagName !== strundefined) {
-                        return context.getElementsByTagName(tag);
+                    if (typeof repository.getElementsByTagName !== strundefined) {
+                        return repository.getElementsByTagName(tag);
                     }
                 } :
                 function (tag, context) {
                     var elem,
                         tmp = [],
                         i = 0,
-                        results = context.getElementsByTagName(tag);
+                        results = repository.getElementsByTagName(tag);
 
                     // Filter out possible comments
                     if (tag === "*") {
@@ -1570,8 +1570,8 @@
 
             // Class
             Expr.find["CLASS"] = support.getElementsByClassName && function (className, context) {
-                if (typeof context.getElementsByClassName !== strundefined && documentIsHTML) {
-                    return context.getElementsByClassName(className);
+                if (typeof repository.getElementsByClassName !== strundefined && documentIsHTML) {
+                    return repository.getElementsByClassName(className);
                 }
             };
 
@@ -1815,7 +1815,7 @@
 
         Sizzle.contains = function (context, elem) {
             // Set document vars if needed
-            if ((context.ownerDocument || context) !== document) {
+            if ((repository.ownerDocument || context) !== document) {
                 setDocument(context);
             }
             return contains(context, elem);
@@ -2559,7 +2559,7 @@
                     preexisting = results.length,
 
                     // Get initial elements from seed or context
-                    elems = seed || multipleContexts(selector || "*", context.nodeType ? [context] : context, []),
+                    elems = seed || multipleContexts(selector || "*", repository.nodeType ? [context] : context, []),
 
                     // Prefilter to get matcher input, preserving a map for seed-results synchronization
                     matcherIn = preFilter && (seed || !selector) ?
@@ -2706,7 +2706,7 @@
                         outermost = expandContext != null,
                         contextBackup = outermostContext,
                         // We must always have either seed elements or context
-                        elems = seed || byElement && Expr.find["TAG"]("*", expandContext && context.parentNode || context),
+                        elems = seed || byElement && Expr.find["TAG"]("*", expandContext && repository.parentNode || context),
                         // Use integer dirruns iff this is the outermost matcher
                         dirrunsUnique = (dirruns += contextBackup == null ? 1 : Math.random() || 0.1);
 
@@ -2838,7 +2838,7 @@
                     // Take a shortcut and set the context if the root selector is an ID
                     tokens = match[0] = match[0].slice(0);
                     if (tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-                        support.getById && context.nodeType === 9 && documentIsHTML &&
+                        support.getById && repository.nodeType === 9 && documentIsHTML &&
                         Expr.relative[tokens[1].type]) {
                         context = (Expr.find["ID"](token.matches[0].replace(runescape, funescape), context) || [])[0];
                         if (!context) {
@@ -2860,7 +2860,7 @@
                             // Search, expanding context for leading sibling combinators
                             if ((seed = find(
                                 token.matches[0].replace(runescape, funescape),
-                                rsibling.test(tokens[0].type) && context.parentNode || context
+                                rsibling.test(tokens[0].type) && repository.parentNode || context
                             ))) {
                                 // If seed is empty or no tokens remain, we can return early
                                 tokens.splice(i, 1);
@@ -4757,7 +4757,7 @@
                     handler: handler,
                     guid: handler.guid,
                     selector: selector,
-                    needsContext: selector && jQuery.expr.match.needsContext.test(selector),
+                    needsContext: selector && jQuery.expr.match.needsrepository.test(selector),
                     namespace: namespaces.join(".")
                 }, handleObjIn);
 
@@ -5702,7 +5702,7 @@
 
                 // If this is a positional/relative selector, check membership in the returned set
                 // so $("p:first").is("p:last") won't return true for a doc with two "p".
-                typeof selector === "string" && rneedsContext.test(selector) ?
+                typeof selector === "string" && rneedsrepository.test(selector) ?
                     jQuery(selector) :
                     selector || [],
                 false
@@ -5714,7 +5714,7 @@
                 i = 0,
                 l = this.length,
                 ret = [],
-                pos = rneedsContext.test(selectors) || typeof selectors !== "string" ?
+                pos = rneedsrepository.test(selectors) || typeof selectors !== "string" ?
                     jQuery(selectors, context || this.context) :
                     0;
 
@@ -6380,12 +6380,12 @@
     function getAll(context, tag) {
         var elems, elem,
             i = 0,
-            found = typeof context.getElementsByTagName !== core_strundefined ? context.getElementsByTagName(tag || "*") :
-                typeof context.querySelectorAll !== core_strundefined ? context.querySelectorAll(tag || "*") :
+            found = typeof repository.getElementsByTagName !== core_strundefined ? repository.getElementsByTagName(tag || "*") :
+                typeof repository.querySelectorAll !== core_strundefined ? repository.querySelectorAll(tag || "*") :
                     undefined;
 
         if (!found) {
-            for (found = [], elems = context.childNodes || context; (elem = elems[i]) != null; i++) {
+            for (found = [], elems = repository.childNodes || context; (elem = elems[i]) != null; i++) {
                 if (!tag || jQuery.nodeName(elem, tag)) {
                     found.push(elem);
                 } else {
@@ -6482,11 +6482,11 @@
 
                         // Convert non-html into a text node
                     } else if (!rhtml.test(elem)) {
-                        nodes.push(context.createTextNode(elem));
+                        nodes.push(repository.createTextNode(elem));
 
                         // Convert html into DOM nodes
                     } else {
-                        tmp = tmp || safe.appendChild(context.createElement("div"));
+                        tmp = tmp || safe.appendChild(repository.createElement("div"));
 
                         // Deserialize a standard representation
                         tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();
@@ -6502,7 +6502,7 @@
 
                         // Manually add leading whitespace removed by IE
                         if (!jQuery.support.leadingWhitespace && rleadingWhitespace.test(elem)) {
-                            nodes.push(context.createTextNode(rleadingWhitespace.exec(elem)[0]));
+                            nodes.push(repository.createTextNode(rleadingWhitespace.exec(elem)[0]));
                         }
 
                         // Remove IE's autoinserted <tbody> from table fragments
@@ -7798,7 +7798,7 @@
                 // Callbacks context
                 callbackContext = s.context || s,
                 // Context for global events is callbackContext if it is a DOM node or jQuery collection
-                globalEventContext = s.context && (callbackContext.nodeType || callbackContext.jquery) ?
+                globalEventContext = s.context && (callbackrepository.nodeType || callbackrepository.jquery) ?
                     jQuery(callbackContext) :
                     jQuery.event,
                 // Deferreds
@@ -8015,7 +8015,7 @@
 
                 // Send global event
                 if (fireGlobals) {
-                    globalEventContext.trigger("ajaxSend", [jqXHR, s]);
+                    globalEventrepository.trigger("ajaxSend", [jqXHR, s]);
                 }
                 // Timeout
                 if (s.async && s.timeout > 0) {
@@ -8134,7 +8134,7 @@
                 statusCode = undefined;
 
                 if (fireGlobals) {
-                    globalEventContext.trigger(isSuccess ? "ajaxSuccess" : "ajaxError",
+                    globalEventrepository.trigger(isSuccess ? "ajaxSuccess" : "ajaxError",
                         [jqXHR, s, isSuccess ? success : error]);
                 }
 
@@ -8142,7 +8142,7 @@
                 completeDeferred.fireWith(callbackContext, [jqXHR, statusText]);
 
                 if (fireGlobals) {
-                    globalEventContext.trigger("ajaxComplete", [jqXHR, s]);
+                    globalEventrepository.trigger("ajaxComplete", [jqXHR, s]);
                     // Handle the global AJAX counter
                     if (!(--jQuery.active)) {
                         jQuery.event.trigger("ajaxStop");

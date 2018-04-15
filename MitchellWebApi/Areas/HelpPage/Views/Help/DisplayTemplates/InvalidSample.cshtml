@@ -1,7 +1,7 @@
 @using MitchellWebApi.Areas.HelpPage
 @model InvalidSample
 
-@if (HttpContext.Current.IsDebuggingEnabled)
+@if (Httprepository.Current.IsDebuggingEnabled)
 {
     <div class="warning-message-container">
         <p>@Model.ErrorMessage</p>

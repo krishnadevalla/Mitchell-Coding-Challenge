@@ -339,26 +339,26 @@ intellisense.annotate(jQuery, {
     },
     'proxy': function () {
         /// <signature>
-        ///   <summary>Takes a function and returns a new one that will always have a particular context.</summary>
+        ///   <summary>Takes a function and returns a new one that will always have a particular repository.</summary>
         ///   <param name="function" type="Function">The function whose context will be changed.</param>
         ///   <param name="context" type="PlainObject">The object to which the context (this) of the function should be set.</param>
         ///   <returns type="Function" />
         /// </signature>
         /// <signature>
-        ///   <summary>Takes a function and returns a new one that will always have a particular context.</summary>
+        ///   <summary>Takes a function and returns a new one that will always have a particular repository.</summary>
         ///   <param name="context" type="PlainObject">The object to which the context of the function should be set.</param>
         ///   <param name="name" type="String">The name of the function whose context will be changed (should be a property of the context object).</param>
         ///   <returns type="Function" />
         /// </signature>
         /// <signature>
-        ///   <summary>Takes a function and returns a new one that will always have a particular context.</summary>
+        ///   <summary>Takes a function and returns a new one that will always have a particular repository.</summary>
         ///   <param name="function" type="Function">The function whose context will be changed.</param>
         ///   <param name="context" type="PlainObject">The object to which the context (this) of the function should be set.</param>
         ///   <param name="additionalArguments" type="Anything">Any number of arguments to be passed to the function referenced in the function argument.</param>
         ///   <returns type="Function" />
         /// </signature>
         /// <signature>
-        ///   <summary>Takes a function and returns a new one that will always have a particular context.</summary>
+        ///   <summary>Takes a function and returns a new one that will always have a particular repository.</summary>
         ///   <param name="context" type="PlainObject">The object to which the context of the function should be set.</param>
         ///   <param name="name" type="String">The name of the function whose context will be changed (should be a property of the context object).</param>
         ///   <param name="additionalArguments" type="Anything">Any number of arguments to be passed to the function named in the name argument.</param>

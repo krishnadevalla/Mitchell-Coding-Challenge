@@ -25,12 +25,12 @@ namespace MitchellClassLib.Tests
             };
 
             // act
-            VehiclesContext vc = new VehiclesContext();
-            vc.addVehicle(vehicle1);
-            vc.addVehicle(vehicle2);
+            VehiclesRepository vr = new VehiclesRepository();
+            vr.AddVehicle(vehicle1);
+            vr.AddVehicle(vehicle2);
 
             // assert
-            Assert.IsTrue(vc.getVehicles().Count() == 2);
+            Assert.IsTrue(vr.GetVehicles().Count() == 2);
         }
 
         [TestMethod()]
@@ -45,11 +45,11 @@ namespace MitchellClassLib.Tests
             };
 
             // act
-            VehiclesContext vc = new VehiclesContext();
-            vc.addVehicle(vehicle);
+            VehiclesRepository vr = new VehiclesRepository();
+            vr.AddVehicle(vehicle);
 
             // assert
-            Assert.IsTrue(VehiclesContext.Vehicles.Contains(vehicle));
+            Assert.IsTrue(VehiclesRepository.Vehicles.Contains(vehicle));
         }
 
         [TestMethod()]
@@ -64,11 +64,11 @@ namespace MitchellClassLib.Tests
             };
 
             // act
-            VehiclesContext vc = new VehiclesContext();
-            vc.addVehicle(vehicle);
+            VehiclesRepository vr = new VehiclesRepository();
+            vr.AddVehicle(vehicle);
 
             // assert
-            Assert.ReferenceEquals(vc.getVehicleId(vehicle.Id.Value), vehicle.MapDto());
+            Assert.ReferenceEquals(vr.GetVehicleId(vehicle.Id.Value), vehicle.MapDto());
         }
 
         [TestMethod()]
@@ -83,11 +83,11 @@ namespace MitchellClassLib.Tests
             };
 
             // act
-            VehiclesContext vc = new VehiclesContext();
-            vc.addVehicle(vehicle);
+            VehiclesRepository vr = new VehiclesRepository();
+            vr.AddVehicle(vehicle);
 
             // assert
-            Assert.IsTrue(vc.deleteVehicle(vehicle.Id.Value));
+            Assert.IsTrue(vr.DeleteVehicle(vehicle.Id.Value));
         }
 
         [TestMethod()]
@@ -108,9 +108,9 @@ namespace MitchellClassLib.Tests
             };
 
             // act
-            VehiclesContext vc = new VehiclesContext();
-            vc.addVehicle(vehicle);
-            vc.updateVehicle(updatedVehicle);
+            VehiclesRepository vr = new VehiclesRepository();
+            vr.AddVehicle(vehicle);
+            vr.UpdateVehicle(updatedVehicle);
             updatedVehicle.Id = vehicle.Id;
 
             // assert
