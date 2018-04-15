@@ -316,7 +316,7 @@
         </member>
         <member name="M:MitchellWebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
             <summary>
-            Gets the sample object that will be serialized by the formatters. 
+            Gets the sample object that will be serialized by the formatters.
             First, it will look at the <see cref="P:MitchellWebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
             one using <see cref="M:MitchellWebApi.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(MitchellWebApi.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:MitchellWebApi.Areas.HelpPage.ObjectGenerator"/>) and other
             factories in <see cref="P:MitchellWebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
@@ -502,14 +502,21 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:MitchellWebApi.Controllers.VehicleController.Get(System.String,System.String)">
+            <summary>
+            Gets vehicles based on filter
+            </summary>
+            <param name="filter"></param>
+            <param name="value"></param>
+        </member>
         <member name="M:MitchellWebApi.Controllers.VehicleController.Post(MitchellClassLib.Commons.Models.Vehicle)">
             <summary>
-            Posts the vehicle
+            Inserts the vehicle into the database
             </summary>
         </member>
         <member name="M:MitchellWebApi.Controllers.VehicleController.Put(MitchellClassLib.Commons.Models.Vehicle)">
             <summary>
-            Updates the vehicle
+            Updates the vehicle for an existing one
             </summary>
         </member>
         <member name="M:MitchellWebApi.Controllers.VehicleController.Delete(System.Int32)">

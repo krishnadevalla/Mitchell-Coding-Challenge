@@ -14,3 +14,10 @@
 /MitchellClassLibTests/bin/Debug
 /MitchellClassLibTests/obj/Debug
 /MitchellWebApiTests/obj/Debug
+/MitchellClassLib/bin/Release
+/MitchellClassLib/obj/Release
+/MitchellClassLibTests/obj/Release
+/MitchellWebApi/obj/Release
+/MitchellWebApiTests/bin/Debug
+/MitchellWebApiTests/obj/Release
+/MitchellWebApi/Properties/PublishProfiles

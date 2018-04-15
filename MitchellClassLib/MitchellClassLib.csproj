@@ -42,10 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\DTOs\VehicleDTO.cs" />
+    <Compile Include="Commons\Helpers\VehicleIdHelper.cs" />
+    <Compile Include="Commons\Models\IVehicle.cs" />
     <Compile Include="Commons\Models\Vehicle.cs" />
-    <Compile Include="IContext.cs" />
+    <Compile Include="Context\IContext.cs" />
+    <Compile Include="Commons\DTOs\IVehicleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VehiclesContext.cs" />
+    <Compile Include="Context\VehiclesContext.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

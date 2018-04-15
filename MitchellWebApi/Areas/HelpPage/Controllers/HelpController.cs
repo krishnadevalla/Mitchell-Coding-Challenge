@@ -1,8 +1,8 @@
+using MitchellWebApi.Areas.HelpPage.ModelDescriptions;
+using MitchellWebApi.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using MitchellWebApi.Areas.HelpPage.ModelDescriptions;
-using MitchellWebApi.Areas.HelpPage.Models;
 
 namespace MitchellWebApi.Areas.HelpPage.Controllers
 {

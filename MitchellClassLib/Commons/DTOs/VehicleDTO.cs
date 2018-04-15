@@ -1,6 +1,6 @@
 ﻿namespace MitchellClassLib.Commons.DTOs
 {
-    public class VehicleDTO
+    public class VehicleDTO : IVehicleDTO
     {
         public int Id { get; set; }
         public int Year { get; set; }

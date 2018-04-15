@@ -1,18 +1,18 @@
-﻿using System;
+﻿using MitchellClassLib.Commons.DTOs;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace MitchellClassLib.Commons.Models
 {
-    public class Vehicle
+    public class Vehicle : IVehicle
     {
         /// <summary>
         /// Id is a identifier of a vehicles
         /// </summary>
-        [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
-        /// Year when vehicle was manufactured 
+        /// Year when vehicle was manufactured
         /// </summary>
         [Required]
         [Range(1950, 2050)]
@@ -33,11 +33,22 @@ namespace MitchellClassLib.Commons.Models
         /// <summary>
         /// Created timestamp of a record for the vehicle
         /// </summary>
-        public DateTime? CreatedAt { get ; set; }
+        public DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// Updated timestamp of a record for the vehicle
         /// </summary>
         public DateTime? UpdatedAt { get; set; }
+
+        public VehicleDTO MapDto()
+        {
+            return new VehicleDTO()
+            {
+                Id = Id.Value,
+                Make = Make,
+                Model = Model,
+                Year = Year
+            };
+        }
     }
 }

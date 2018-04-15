@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MitchellClassLib;
 using MitchellClassLib.Commons.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MitchellClassLib.Tests
 {
@@ -13,61 +8,113 @@ namespace MitchellClassLib.Tests
     public class VehiclesContextTests
     {
         [TestMethod()]
-        public void AddVehicleTest()
+        public void GetVehiclesTest()
         {
             // arrange
-            Vehicle vehicle = new Vehicle()
+            Vehicle vehicle1 = new Vehicle()
             {
-                Id = 1,
+                Make = "Honda",
+                Model = "HRV",
+                Year = 2015
+            };
+            Vehicle vehicle2 = new Vehicle()
+            {
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2015
             };
 
-            // act  
+            // act
+            VehiclesContext vc = new VehiclesContext();
+            vc.addVehicle(vehicle1);
+            vc.addVehicle(vehicle2);
+
+            // assert
+            Assert.IsTrue(vc.getVehicles().Count() == 2);
+        }
+
+        [TestMethod()]
+        public void AddVehicleTest()
+        {
+            // arrange
+            Vehicle vehicle = new Vehicle()
+            {
+                Make = "Honda",
+                Model = "HRV",
+                Year = 2015
+            };
+
+            // act
             VehiclesContext vc = new VehiclesContext();
             vc.addVehicle(vehicle);
 
-            // assert  
+            // assert
             Assert.IsTrue(VehiclesContext.Vehicles.Contains(vehicle));
         }
 
         [TestMethod()]
         public void GetVehicleByIdTest()
         {
-            // arrange  
+            // arrange
             Vehicle vehicle = new Vehicle()
             {
-                Id = 1,
                 Make = "Honda",
                 Model = "HRV",
                 Year = 2015
             };
 
-            // act  
+            // act
             VehiclesContext vc = new VehiclesContext();
             vc.addVehicle(vehicle);
 
             // assert
-            Assert.IsTrue(vc.getVehicleById(vehicle.Id) == vehicle);
+            Assert.ReferenceEquals(vc.getVehicleId(vehicle.Id.Value), vehicle.MapDto());
         }
 
         [TestMethod()]
         public void DeleteVehicleTest()
         {
-            Assert.Fail();
-        }
+            // arrange
+            Vehicle vehicle = new Vehicle()
+            {
+                Make = "Honda",
+                Model = "HRV",
+                Year = 2015
+            };
 
-        [TestMethod()]
-        public void GetVehiclesTest()
-        {
-            Assert.Fail();
+            // act
+            VehiclesContext vc = new VehiclesContext();
+            vc.addVehicle(vehicle);
+
+            // assert
+            Assert.IsTrue(vc.deleteVehicle(vehicle.Id.Value));
         }
 
         [TestMethod()]
         public void UpdateVehicleTest()
         {
-            Assert.Fail();
+            // arrange
+            Vehicle vehicle = new Vehicle()
+            {
+                Make = "Honda",
+                Model = "HRV",
+                Year = 2015
+            };
+            Vehicle updatedVehicle = new Vehicle()
+            {
+                Make = "Honda",
+                Model = "HRV",
+                Year = 2016
+            };
+
+            // act
+            VehiclesContext vc = new VehiclesContext();
+            vc.addVehicle(vehicle);
+            vc.updateVehicle(updatedVehicle);
+            updatedVehicle.Id = vehicle.Id;
+
+            // assert
+            Assert.ReferenceEquals(vehicle, updatedVehicle);
         }
     }
 }
