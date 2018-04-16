@@ -1,0 +1,7 @@
+<div class="row vehicle" (click)="clickedVehicle(vehicle);">
+    <div class="col-lg-2"><h5>{{ vehicle.Id }}</h5></div>
+    <div class="col-lg-3"><h5>{{ vehicle.Year }}</h5></div>
+    <div class="col-lg-3"><h5>{{ vehicle.Make }}</h5></div>
+    <div class="col-lg-3"><h5>{{ vehicle.Model }}</h5></div>
+    <div class="col-lg-1"><a (click)="deleteVehicle(vehicle.Id)" class="btn btn-danger"><i class="far fa-times-circle"></i></a></div>
+</div>

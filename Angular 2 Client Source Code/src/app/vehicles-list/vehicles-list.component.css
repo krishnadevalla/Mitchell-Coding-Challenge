@@ -1,0 +1,7 @@
+.vehiclesList
+{
+    width: auto;
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

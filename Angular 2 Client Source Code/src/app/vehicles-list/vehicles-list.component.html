@@ -1,0 +1,32 @@
+<div class="main">
+    <div class="row">
+        <div class="col-lg-3">
+                <h3>Vehicles</h3>
+        </div>
+        <div class="col-lg-6">
+                <div class="row">
+                        <div class="col-lg-2"><h5>Filter by</h5></div>
+                        <div class="col-lg-2">
+                            <select class="form-control"[(ngModel)]="filterval">
+                                    <option *ngFor="let f of filterList" [ngValue]="f">{{f}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <input class="form-control" (keyup)="onSearchChange($event.target.value)" type="text"/>
+                        </div>
+                </div>
+        </div>
+    </div>
+    <hr>
+    <div *ngIf="vehicles.length>0" class="row border border-right-0 border-left-0 border-top-0">
+        <div class="col-lg-2"><h4>Id</h4></div>
+        <div class="col-lg-3"><h4>Year</h4></div>
+        <div class="col-lg-3"><h4>Make</h4></div>
+        <div class="col-lg-3"><h4>Model</h4></div>
+    </div>
+    <div class="vehiclesList">
+        <div [attr.id]="vehicle.Id" *ngFor="let vehicle of vehicles">
+            <app-vehicle (delete)="getListofVehicles()" [vehicle]="vehicle"></app-vehicle>
+        </div>
+    </div>
+</div>

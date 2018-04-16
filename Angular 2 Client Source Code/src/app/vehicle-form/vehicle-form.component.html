@@ -1,0 +1,26 @@
+<div class="main">
+    <h3 *ngIf="vehicle.Id==undefined">Add vehicle</h3>
+    <h3 *ngIf="vehicle.Id!=undefined">Edit vehicle:{{vehicle.Id}}</h3>
+    <form>
+    <div class="row">
+      <div class="col-lg-3">
+        <input class="form-control" required type="number" [(ngModel)]="vehicle.Year" name="Year" placeholder="Year"/>
+      </div>
+      <div class="col-lg-3">
+          <input class="form-control" required type="text" [(ngModel)]="vehicle.Make" name="Make" placeholder="Make"/>
+      </div>
+      <div class="col-lg-3">
+          <input class="form-control" required type="text" [(ngModel)]="vehicle.Model" name="Model" placeholder="Model"/>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-2">
+        <button class="btn btn-success" (click)="submitModel()">Save</button>
+      </div>
+      <div class="col-lg-2">
+        <button class="btn btn-primary" *ngIf="vehicle.Id!=undefined" (click)="updateModel()">Update</button>
+      </div>
+    </div>
+    </form>
+  </div>

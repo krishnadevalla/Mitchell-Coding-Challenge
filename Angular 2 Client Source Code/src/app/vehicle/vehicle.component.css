@@ -1,0 +1,13 @@
+.vehicle{
+    padding: 1%
+}
+.vehicle:hover{
+    background-color:yellowgreen;
+    border-width: 1em;
+    color: wheat;
+    cursor: pointer;
+    font-weight: bolder
+ }
+ .vehicle:selection{
+    background-color:yellowgreen;
+ }
