@@ -3,3 +3,21 @@
 ################################################################################
 
 /MitchellClassLib/obj/Debug
+*.suo
+/packages
+/MitchellWebAPI.Tests/obj/Debug
+/.vs
+/MitchellWebAPI.Tests/bin/Debug
+/MitchellClassLib/bin/Debug
+/MitchellWebAPI/bin
+/MitchellWebAPI/obj/Debug
+/MitchellClassLibTests/bin/Debug
+/MitchellClassLibTests/obj/Debug
+/MitchellWebApiTests/obj/Debug
+/MitchellClassLib/bin/Release
+/MitchellClassLib/obj/Release
+/MitchellClassLibTests/obj/Release
+/MitchellWebApi/obj/Release
+/MitchellWebApiTests/bin/Debug
+/MitchellWebApiTests/obj/Release
+/MitchellWebApi/Properties/PublishProfiles
