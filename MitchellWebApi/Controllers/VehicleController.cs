@@ -1,6 +1,7 @@
 ﻿using MitchellClassLib;
 using MitchellClassLib.Commons.DTOs;
 using MitchellClassLib.Commons.Models;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
@@ -27,6 +28,7 @@ namespace MitchellWebApi.Controllers
         /// Gets all the vehicles
         /// </summary>
         [Route("vehicles")]
+        [ResponseType(typeof(List<VehicleDTO>))]
         public IHttpActionResult Get()
         {
             return Ok(repository.GetVehicles());
@@ -38,7 +40,7 @@ namespace MitchellWebApi.Controllers
         /// <param name="id"></param>
         // GET vehicles/5
         [Route("vehicles/{id}", Name = "GetById")]
-        [ResponseType(typeof(Vehicle))]
+        [ResponseType(typeof(VehicleDTO))]
         public IHttpActionResult Get(int id)
         {
             IVehicleDTO vehicle = repository.GetVehicleId(id);
@@ -54,6 +56,7 @@ namespace MitchellWebApi.Controllers
         /// <param name="filter"></param>
         /// <param name="value"></param>
         [Route("vehicles/{filter}/{value}")]
+        [ResponseType(typeof(List<VehicleDTO>))]
         public IHttpActionResult Get(string filter, string value)
         {
             return Ok(repository.GetVehicleByFilter(filter, value));
@@ -64,8 +67,8 @@ namespace MitchellWebApi.Controllers
         /// </summary>
         // POST vehicles
         [Route("vehicles")]
-        [ResponseType(typeof(Vehicle))]
-        public IHttpActionResult Post([FromBody]Vehicle vehicle)
+        [ResponseType(typeof(VehicleDTO))]
+        public IHttpActionResult Post(Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -84,8 +87,8 @@ namespace MitchellWebApi.Controllers
         /// </summary>
         // PUT vehicles
         [Route("vehicles")]
-        [ResponseType(typeof(Vehicle))]
-        public IHttpActionResult Put([FromBody]Vehicle vehicle)
+        [ResponseType(typeof(VehicleDTO))]
+        public IHttpActionResult Put(Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {

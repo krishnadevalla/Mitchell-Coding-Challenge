@@ -486,7 +486,7 @@
             WebApi that manages vehicles
             </summary>
         </member>
-        <member name="M:MitchellWebApi.Controllers.VehicleController.#ctor(MitchellClassLib.IContext)">
+        <member name="M:MitchellWebApi.Controllers.VehicleController.#ctor(MitchellClassLib.IRepository)">
             <summary>
             Constructor with Dependency Injection
             </summary>

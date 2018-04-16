@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace MitchellClassLib
 {
+    /// <summary>
+    /// Interface for vehicles repository
+    /// </summary>
     public interface IRepository
     {
         IVehicleDTO AddVehicle(Vehicle vehicle);

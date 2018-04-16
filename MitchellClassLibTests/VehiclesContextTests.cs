@@ -34,6 +34,32 @@ namespace MitchellClassLib.Tests
         }
 
         [TestMethod()]
+        public void GetVehiclesByFilterTest()
+        {
+            // arrange
+            Vehicle vehicle1 = new Vehicle()
+            {
+                Make = "Honda",
+                Model = "CRV",
+                Year = 2015
+            };
+            Vehicle vehicle2 = new Vehicle()
+            {
+                Make = "Honda",
+                Model = "CRV",
+                Year = 2015
+            };
+
+            // act
+            VehiclesRepository vr = new VehiclesRepository();
+            vr.AddVehicle(vehicle1);
+            vr.AddVehicle(vehicle2);
+
+            // assert
+            Assert.IsTrue(vr.GetVehicleByFilter("Model", "CR").Count() == 2);
+        }
+
+        [TestMethod()]
         public void AddVehicleTest()
         {
             // arrange

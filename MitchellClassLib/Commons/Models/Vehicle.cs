@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MitchellClassLib.Commons.Models
 {
+    /// <summary>
+    /// Model for vehicle
+    /// </summary>
     public class Vehicle : IVehicle
     {
         /// <summary>
@@ -22,12 +25,14 @@ namespace MitchellClassLib.Commons.Models
         /// Make of a vehicle
         /// </summary>
         [Required]
+        [MaxLength(100)]
         public string Make { get; set; }
 
         /// <summary>
         /// Model of a vehicle
         /// </summary>
         [Required]
+        [MaxLength(100)]
         public string Model { get; set; }
 
         /// <summary>
@@ -40,6 +45,12 @@ namespace MitchellClassLib.Commons.Models
         /// </summary>
         public DateTime? UpdatedAt { get; set; }
 
+        /// <summary>
+        /// Converts or maps vehicle model to vehicle dto
+        /// </summary>
+        /// <returns>
+        /// Returns vehicle dto
+        /// </returns>
         public VehicleDTO MapDto()
         {
             return new VehicleDTO()

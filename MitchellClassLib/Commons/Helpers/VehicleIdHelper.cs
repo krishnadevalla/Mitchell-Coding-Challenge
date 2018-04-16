@@ -1,5 +1,8 @@
 ﻿namespace MitchellClassLib.Commons.Helpers
 {
+    /// <summary>
+    /// Singleton class to maintain id
+    /// </summary>
     public sealed class VehicleIdHelper
     {
         private static VehicleIdHelper instance;

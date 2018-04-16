@@ -10,9 +10,9 @@ namespace MitchellWebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
             // Web API routes
 
+            // Unity for dependency injection
             var container = new UnityContainer();
             container.RegisterType<IRepository, VehiclesRepository>(new HierarchicalLifetimeManager());
             config.DependencyResolver = new UnityResolver(container);
